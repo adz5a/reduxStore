@@ -1,0 +1,22 @@
+{
+  "name": "tag_v2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tracker.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/storetailteam/tag_v2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/storetailteam/tag_v2#readme",
+  "dependencies": {
+    "utilities": "git+ssh://git@bitbucket.org/storetailteam/utilities.git"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0"
+  }
+}

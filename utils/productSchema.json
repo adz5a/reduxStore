@@ -1,0 +1,22 @@
+{
+    "id": [
+        "<id>",
+        "</id>"
+    ],
+    "name": [
+        "<name>",
+        "</name>"
+    ],
+    "promo": [
+        "<promo>",
+        "</promo>"
+    ],
+    "qty": [
+        "<qty>",
+        "</qty>"
+    ],
+    "price": [
+        "<price>",
+        "</price>"
+    ]
+}

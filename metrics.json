@@ -1,0 +1,85 @@
+{
+    "ut": [
+        "sessionTime"
+    ],
+    "up": [
+        "sessionPages"
+    ],
+    "uc": [
+        "userCookies"
+    ],
+    "ts": [
+        "techScreen"
+    ],
+    "tw": [
+        "techWindow"
+    ],
+    "rn": [
+        "retailName"
+    ],
+    "rs": [
+        "retailShop"
+    ],
+    "rp": [
+        "retailPage"
+    ],
+    "rk": [
+        "retailSearch"
+    ],
+    "re": [
+        "retailPlacements"
+    ],
+    "tf": [
+        "trackFrom"
+    ],
+    "tb": [
+        "trackBrand",
+        "brand"
+    ],
+    "to": [
+        "trackOperation",
+        "operation"
+    ],
+    "ti": [
+        "trackInsertion",
+        "insertion"
+    ],
+    "tc": [
+        "trackCreative",
+        "creative"
+    ],
+    "tt": [
+        "trackTime"
+    ],
+    "tv": [
+        "trackVisibility"
+    ],
+    "tg": [
+        "trackGoal"
+    ],
+    "tp": [
+        "trackGoalStep"
+    ],
+    "tn": [
+        "trackValue"
+    ],
+    "tl": [
+        "trackLabel",
+        "label"
+    ],
+    "ta": [
+        "trackAction",
+        "action"
+    ],
+    "vf": [
+        "trackUid"
+    ],
+    "te": [
+        "trackEvent",
+        "event"
+    ],
+    "tz": [
+        "trackZone",
+        "zone"
+    ]
+}

@@ -1,0 +1,7 @@
+{
+    "load": "lod",
+    "display": "imp",
+    "click": "clk",
+    "action": "act",
+    "event": "evt"
+}

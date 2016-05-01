@@ -7,7 +7,7 @@ gulp.task( "example", function () {
     
     return browserify( "example/tag.js" ).bundle()
         .pipe( source( "tag.js" ) )
-        .pipe( gulp.dest( "tag/dist/" ) );
+        .pipe( gulp.dest( "example/dist/" ) );
     
 } );
 

@@ -21,14 +21,19 @@ __sto.deliv( {
 __sto.load( {
     "id"          : "scriptId",
     "dependencies": [
-        "template.searchandising"
+        {
+            "id"      : "template.searchandising",
+            "settings": {
+                ".sto-searchandising-container": {
+                    "background-color": "blue"
+                }
+            }
+        }
     ],
-    "settings"    : {
-        "background-color": "black"
-    },
-    function ( context, template ) {
+    "options"     : {},
+    "main"        : function ( context, template ) {
         
-        
+        console.log( "I'im loading yo" );
         return template.run();
         
     }
@@ -39,23 +44,44 @@ __sto.register( {
     "name"   : "searchandising",
     "builder": function ( global, context, settings ) {
         
+        console.log( "hello man" );
         var $       = global.jQuery;
-        var wrapper = $( "<div class='sto-searchandising-wrapper'><div class='sto-searchandising-container' style='background-color: red;'></div></div>" )
+        var wrapper = $( "<div class='sto-searchandising-wrapper'><div class='sto-searchandising-container'></div></div>" )
             .css( {
                 "position": "relative"
             } );
-
-        Object.keys( settings ).forEach( function ( selector ) {
-
-            wrapper.find( selector ).css( settings[ selector ] );
-
+        
+        //set defaults
+        var defaults = {
+            ".sto-searchandising-container": {
+                "height"          : "200px",
+                "background-color": "red"
+            }
+        };
+        Object.keys( defaults ).forEach( function ( selector ) {
+            
+            wrapper.find( selector ).css( defaults[ selector ] );
+            
         } );
-
+        
+        Object.keys( settings ).forEach( function ( selector ) {
+            
+            wrapper.find( selector ).css( settings[ selector ] );
+            
+        } );
+        
         return {
-            "run": function () {
-
-                wrapper.insertAfter( "#addProductNotifZone" );
-
+            "run"   : function () {
+                
+                wrapper.appendTo( "#addProductNotifZone" );
+                return this;
+                
+            },
+            "remove": function () {
+                
+                wrapper.remove();
+                return this;
+                
             }
         };
     }

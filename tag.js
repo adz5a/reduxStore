@@ -1,14 +1,15 @@
 "use strict";
+var deferred    = require( "deferred" );
 var actionTypes = require( "./actionTypes.json" );
 var session     = require( "./context/session" );
-var store       = require( "./store.js" )( require( "./flow" ) );
+var store       = require( "./store" )( require( "./flow" ) );
 var global      = require( "./global" );
-var helpers     = require( "utilities/helpers" );
+var modules     = require( "./modules" );
 var namespace   = {
-    "utils": helpers
+    "jQuery": global.jQuery
 };
 var methods     = {
-    "deliv": function ( deliveryObject ) {
+    "deliv"   : function ( deliveryObject ) {
         
         store.dispatch( {
             "type": actionTypes.DELIVERY,
@@ -16,12 +17,27 @@ var methods     = {
         } );
         
     },
-    "load" : function ( name, settings, builder ) {
+    "load"    : function ( format ) {
         
-        store.dispatch( {
-            "type": actionTypes.DELIVERY,
-            "data": deliveryObject
+        var deps = format.dependencies.map( function ( dependency ) {
+            console.log( dependency.id );
+            return modules.require( dependency.id ).then( function ( dep ) {
+                return dep( global, {}, dependency.settings ); //global (sandbox), context (eventEmitter), settings
+            } ).catch( err => console.log( err ) );
         } );
+        
+        deferred.all( deps ).then( function ( dependencies ) {
+            
+            return format.main.apply( void(0), [ {} ].concat( dependencies ) );
+            
+        } )
+        
+        
+    },
+    "register": function ( module ) {
+        
+        modules.register( module );
+        return this;
         
     }
 };

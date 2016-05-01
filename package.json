@@ -14,9 +14,11 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/storetailteam/tag_v2#readme",
   "dependencies": {
-    "utilities": "git+ssh://git@bitbucket.org/antoinezimmermann/utilities.git"
+    "deferred": "git+ssh://git@bitbucket.org/storetailteam/deferred.git",
+    "utilities": "git+ssh://git@bitbucket.org/storetailteam/utilities.git"
   },
   "devDependencies": {
-    "browserify": "^13.0.0"
+    "browserify": "^13.0.0",
+    "tape": "^4.5.1"
   }
 }

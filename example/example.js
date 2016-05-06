@@ -1,5 +1,5 @@
 "use strict";
-var tag    = require( "./../tag" );
+var tag    = require( "./../lib/tag" );
 var global = require( "./../global" );
 var __sto  = global.__sto;
 

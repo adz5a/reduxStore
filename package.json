@@ -20,7 +20,9 @@
   "devDependencies": {
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",
-    "tape": "^4.5.1",
+    "gulp-watch": "^4.3.5",
+    "i": "^0.3.5",
+    "npm": "^3.8.9",
     "vinyl-source-stream": "^1.1.0"
   }
 }

@@ -2,7 +2,7 @@
 
 var undefined;
 var test = require( "tape" );
-var storeFactory = require( "./../lib/store.js" );
+var storeFactory = require( "./../lib/createStore.js" );
 
 
 test( "Store with a fixed state", function ( t ) {

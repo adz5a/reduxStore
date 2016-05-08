@@ -2,7 +2,7 @@
   "name": "tag_v2",
   "version": "1.0.0",
   "description": "",
-  "main": "tracker.js",
+  "main": "lib/store.js",
   "scripts": {
     "test": "node tests/tests"
   },

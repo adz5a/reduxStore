@@ -5,22 +5,7 @@
 
 }
 
-.DELETED {
-    background-color: #d50000!important;
-}
-
-.RESOLVED {
-
-    background-color: #1b5e20!important;
-
-}
-.PENDING {
-
-    background-color: #0091ea!important;
-
-}
-
-.DELETED, .RESOLVED {
+.line-through {
 
     text-decoration: line-through;
 

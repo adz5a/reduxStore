@@ -22,7 +22,6 @@ todoStore.subscribe( function () {
     
 } );
 
-
 $( "#addTodoForm" ).submit( function ( e ) {
     
     e.preventDefault();
@@ -46,13 +45,15 @@ $( "#addTodoForm" ).submit( function ( e ) {
 } );
 
 $todoList
-    .on( "click", ".material-icons", function () {
-        
-        var action = $( this ).data();
-        action.id  = +action.id; // cast a n integer for === comparison
-        
-        todoStore.dispatch( todoListItemsActionCreators( action, $( this ) ) );
-        
+    .on( "click", ".updateTodo", function () {
+
+        var $t    = $( this ),
+            action;
+        action    = $t.data();
+        action.id = +action.id;
+
+        todoStore.dispatch( todoListItemsActionCreators( action, $t.parentsUntil( ".collection-item" ) ) )
+
     } );
 
 

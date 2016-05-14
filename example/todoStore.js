@@ -1,7 +1,7 @@
 "use strict";
 
-var createStore = require( "./../lib/createStore" );
-var logger      = require( "./../lib/applyMiddleware" )( ( getState, dispatch ) => next => action => {
+var createStore = require( "./../createStore" );
+var logger      = require( "./../applyMiddleware" )( ( getState, dispatch ) => next => action => {
 
     console.log( action );
     var returnValue = next( action );

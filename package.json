@@ -1,5 +1,5 @@
 {
-  "name": "tag_v2",
+  "name": "reduxStore",
   "version": "1.0.0",
   "description": "",
   "main": "lib/store.js",
@@ -13,10 +13,6 @@
   "author": "",
   "license": "ISC",
   "homepage": "https://bitbucket.org/storetailteam/tag_v2#readme",
-  "dependencies": {
-    "deferred": "git+ssh://git@bitbucket.org/storetailteam/deferred.git",
-    "utilities": "git+ssh://git@bitbucket.org/storetailteam/utilities.git"
-  },
   "devDependencies": {
     "lodash": "^4.11.2",
     "tape": "^4.5.1"

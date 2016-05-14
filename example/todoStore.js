@@ -7,7 +7,8 @@ var status      = require( "./status.js" );
 module.exports = createStore( function ( state, action ) {
     
     if ( !state ) state = {
-        "todos": []
+        "todos"       : [],
+        "currentIndex": 0
     };
     if ( !action ) return state;
     
@@ -15,19 +16,21 @@ module.exports = createStore( function ( state, action ) {
         
         case actions.ADD_TODO:
             
-            state = {
-                "todos": state.todos.concat( {
-                    "text"  : action.text,
-                    "id"    : action.id,
-                    "status": status.PENDING
+            return Object.assign( {}, state, {
+                todos: state.todos.concat( {
+                    text  : action.text,
+                    id    : state.currentIndex,
+                    status: status.PENDING
                 } )
-            };
+            }, {
+                currentIndex: state.currentIndex + 1
+            } );
             
             break;
         
         case actions.DELETE_TODO:
             
-            state = {
+            return Object.assign( {}, state, {
                 "todos": state.todos.map( function ( todo ) {
                     
                     return {
@@ -37,14 +40,14 @@ module.exports = createStore( function ( state, action ) {
                     };
                     
                 } )
-            };
+            } );
             
             
             break;
         
         case actions.EDIT_TODO:
             
-            state = {
+            return Object.assign( {}, state, {
                 "todos": state.todos.map( function ( todo ) {
                     
                     return {
@@ -54,13 +57,13 @@ module.exports = createStore( function ( state, action ) {
                     };
                     
                 } )
-            };
+            } );
             
             break;
         
         case actions.RESOLVE_TODO:
             
-            state = {
+            return Object.assign( {}, state, {
                 "todos": state.todos.map( function ( todo ) {
                     
                     return {
@@ -70,19 +73,58 @@ module.exports = createStore( function ( state, action ) {
                     };
                     
                 } )
-            };
+            } );
             
+            break;
+
+        case actions.UPDATE_TODO:
+
+            return Object.assign( {}, state, {
+                "todos": state.todos.map( function ( todo ) {
+
+                    if ( todo.id === action.id ) {
+
+                        return {
+                            "id"    : todo.id,
+                            "text"  : action.text,
+                            "status": status.PENDING
+                        };
+
+                    }
+
+                    return todo;
+
+                } )
+            } );
+
+            break;
+
+        case actions.CANCEL_TODO_UPDATE:
+
+            return Object.assign( {}, state, {
+                "todos": state.todos.map( function ( todo ) {
+
+                    if ( todo.id === action.id ) {
+
+                        return {
+                            "id"    : todo.id,
+                            "text"  : todo.text,
+                            "status": status.PENDING
+                        };
+
+                    }
+
+                    return todo;
+
+                } )
+            } );
+
             break;
         
         default:
             
-            alert( "not catched" );
-            alert( action );
-            break;
+            return state;
         
     }
-    
-    return state;
-}, {
-    "todos": []
+
 } );

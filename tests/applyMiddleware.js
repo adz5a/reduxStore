@@ -1,7 +1,7 @@
 "use strict";
 var test            = require( "tape" );
-var applyMiddleware = require( "./../lib/applyMiddleware" );
-var createStore     = require( "./../lib/createStore" );
+var applyMiddleware = require( "./../applyMiddleware" );
+var createStore     = require( "./../createStore" );
 
 var middlewares = applyMiddleware( function ( getState, dispatch ) {
     

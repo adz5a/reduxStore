@@ -1,5 +1,5 @@
 "use strict";
-
+//http://redux.js.org/docs/api/applyMiddleware.html
 function checkMiddleware ( middleware, i ) {
     if ( typeof middleware !== "function" ) throw new TypeError( "ApplyMiddleware : middlewares must be functions, instead reducer " + i + " was typeof " + typeof middleware );
 }
@@ -13,7 +13,7 @@ function checkMiddleware ( middleware, i ) {
  *                                      and (next => action) a function that takes a next function as
  *                                      a parameter and return an action to dispatch
  * @returns {Function}
- */ 
+ */
 module.exports = function () {
     
     var middlewares = Array.prototype.slice.call( arguments, 0 );

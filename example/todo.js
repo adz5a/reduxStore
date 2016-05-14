@@ -6,7 +6,8 @@ var actions    = require( "./actions.js" ),
     status     = require( "./status.js" );
 var $todoList  = $( "#todos" );
 var todoInput  = $( "#todoInput" );
-var renderTodo = require( "./renderTodo" );
+var renderTodo = require( "./renderTodo" ),
+    todoForm   = require( "./todoForm" );
 
 
 var todoListItemsActionCreators = require( "./todoListItemsActionCreators" );
@@ -22,27 +23,6 @@ todoStore.subscribe( function () {
     
 } );
 
-$( "#addTodoForm" ).submit( function ( e ) {
-    
-    e.preventDefault();
-    var todo = todoInput.val();
-    if ( !todo ) {
-        
-        alert( "please give me stuff to do" );
-        
-    } else {
-        
-        todoStore.dispatch( {
-            "type": actions.ADD_TODO,
-            "text": todo
-        } );
-        todoInput.val( "" );
-        
-    }
-    
-    return false;
-    
-} );
 
 $todoList
     .on( "click", ".updateTodo", function () {

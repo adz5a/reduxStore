@@ -52,7 +52,8 @@
 	    status     = __webpack_require__( 4 );
 	var $todoList  = $( "#todos" );
 	var todoInput  = $( "#todoInput" );
-	var renderTodo = __webpack_require__( 5 );
+	var renderTodo = __webpack_require__( 5 ),
+	    todoForm   = __webpack_require__( 7 );
 
 
 	var todoListItemsActionCreators = __webpack_require__( 6 );
@@ -68,27 +69,6 @@
 	    
 	} );
 
-	$( "#addTodoForm" ).submit( function ( e ) {
-	    
-	    e.preventDefault();
-	    var todo = todoInput.val();
-	    if ( !todo ) {
-	        
-	        alert( "please give me stuff to do" );
-	        
-	    } else {
-	        
-	        todoStore.dispatch( {
-	            "type": actions.ADD_TODO,
-	            "text": todo
-	        } );
-	        todoInput.val( "" );
-	        
-	    }
-	    
-	    return false;
-	    
-	} );
 
 	$todoList
 	    .on( "click", ".updateTodo", function () {
@@ -479,6 +459,47 @@
 
 
 	};
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var $         = window.jQuery;
+	var todoStore = __webpack_require__( 1 );
+	var $input    = $( "#todoInput" );
+	var actions = __webpack_require__(3);
+
+	$input.on( "keydown", function ( e ) {
+
+	    if ( e.which === 13 ) {
+
+	        var todo = $input.val();
+	        if ( !todo ) {
+
+	            alert( "please give me stuff to do" );
+
+	        } else {
+
+	            todoStore.dispatch( {
+	                "type": actions.ADD_TODO,
+	                "text": todo
+	            } );
+	            $input.val( "" );
+
+	        }
+
+	        return false;
+
+	    }
+
+
+
+	} );
+
+
+	module.exports = $input;
+
 
 /***/ }
 /******/ ]);

@@ -4,7 +4,8 @@
   "description": "",
   "main": "lib/store.js",
   "scripts": {
-    "test": "node tests/tests"
+    "test": "node tests/tests",
+    "webpack": "webpack ./example/todo.js ./example/dist/todo.js --watch "
   },
   "repository": {
     "type": "git",
@@ -15,6 +16,8 @@
   "homepage": "https://bitbucket.org/storetailteam/tag_v2#readme",
   "devDependencies": {
     "lodash": "^4.11.2",
-    "tape": "^4.5.1"
+    "tape": "^4.5.1",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
   }
 }

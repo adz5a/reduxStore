@@ -1,6 +1,17 @@
 "use strict";
 
 var createStore = require( "./../lib/createStore" );
+var logger      = require( "./../lib/applyMiddleware" )( ( getState, dispatch ) => next => action => {
+
+    console.log( action );
+    var returnValue = next( action );
+
+    console.log( getState() );
+
+    return returnValue;
+
+
+} );
 var actions     = require( "./actions.js" );
 var status      = require( "./status.js" );
 
@@ -127,4 +138,4 @@ module.exports = createStore( function ( state, action ) {
         
     }
 
-} );
+}, undefined, logger );

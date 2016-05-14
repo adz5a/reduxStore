@@ -48,15 +48,15 @@
 
 	var $          = global.jQuery;
 	var todoStore  = __webpack_require__( 1 );
-	var actions    = __webpack_require__( 3 ),
-	    status     = __webpack_require__( 4 );
+	var actions    = __webpack_require__( 4 ),
+	    status     = __webpack_require__( 5 );
 	var $todoList  = $( "#todos" );
 	var todoInput  = $( "#todoInput" );
-	var renderTodo = __webpack_require__( 5 ),
+	var renderTodo = __webpack_require__( 6 ),
 	    todoForm   = __webpack_require__( 7 );
 
 
-	var todoListItemsActionCreators = __webpack_require__( 6 );
+	var todoListItemsActionCreators = __webpack_require__( 8 );
 
 
 	todoStore.subscribe( function () {
@@ -96,8 +96,19 @@
 	"use strict";
 
 	var createStore = __webpack_require__( 2 );
-	var actions     = __webpack_require__( 3 );
-	var status      = __webpack_require__( 4 );
+	var logger      = __webpack_require__( 3 )( ( getState, dispatch ) => next => action => {
+
+	    console.log( action );
+	    var returnValue = next( action );
+
+	    console.log( getState() );
+
+	    return returnValue;
+
+
+	} );
+	var actions     = __webpack_require__( 4 );
+	var status      = __webpack_require__( 5 );
 
 	module.exports = createStore( function ( state, action ) {
 	    
@@ -222,7 +233,7 @@
 	        
 	    }
 
-	} );
+	}, undefined, logger );
 
 /***/ },
 /* 2 */
@@ -362,6 +373,92 @@
 /* 3 */
 /***/ function(module, exports) {
 
+	"use strict";
+
+	function checkMiddleware ( middleware, i ) {
+	    if ( typeof middleware !== "function" ) throw new TypeError( "ApplyMiddleware : reducers must be functions, instead reducer " + i + " was typeof " + typeof middleware );
+	}
+
+	function nextFunction ( middlewares ) {
+	    
+	    var i = 0, l = middlewares.length;
+	    
+	    
+	}
+
+
+	/**
+	 * @param ...middlewares - {Function} - middleware functions:
+	 *                                      they must have the following
+	 *                                      signature : (dispatch, getState) => next => action
+	 *                                      where dispatch, getState are the respective store methods
+	 *                                      and (next => action) a function that takes a next function as
+	 *                                      a parameter and return an action to dispatch
+	 * @returns {Function}
+	 */
+	module.exports = function () {
+	    
+	    var middlewares = Array.prototype.slice.call( arguments, 0 );
+	    
+	    middlewares.forEach( checkMiddleware );
+	    
+	    /**
+	     * @param store {Object} - Store instance
+	     * @param store.dispatch {Function} - store dispatch method
+	     * @param store.getState {Function} - store getState method
+	     */
+	    return function ( store ) {
+	        
+	        var
+	            i                = -1,
+	            l                = middlewares.length,
+	            compiledMiddleware,
+	            nextFunction,
+	            getState         = store.getState,
+	            originalDispatch = store.dispatch,
+	            // this always return the current value of store.dispatch,
+	            // going through all the middlewares if presents
+	            dispatch         = function ( action ) {
+	                return store.dispatch( action );
+	            };
+	        
+	        while ( ++i < l ) {
+	            
+	            compiledMiddleware = middlewares[ l - i - 1 ]( getState, dispatch );
+	            if ( nextFunction ) {
+	                
+	                nextFunction = compiledMiddleware( nextFunction );
+	                
+	            } else {
+	                
+	                nextFunction = compiledMiddleware( originalDispatch );
+	                
+	            }
+	            
+	            if ( typeof nextFunction !== "function" ) throw new TypeError( "applyMiddleware : the middleware did not return a valid function to be used. At index : " + middlewares.length - l );
+
+
+	        }
+	        
+	        if ( typeof nextFunction !== "function" ) throw new TypeError( "applyMiddleware" );
+	        store.dispatch = function ( action ) {
+	            
+	            nextFunction( action );
+	            return getState();
+	            
+	        };
+
+	        
+	        return store;
+	        
+	    };
+	    
+	};
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
 	module.exports = {
 	    "ADD_TODO"          : "ADD_TODO",
 	    "EDIT_TODO"         : "EDIT_TODO",
@@ -372,7 +469,7 @@
 	};
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 	module.exports = {
@@ -383,12 +480,12 @@
 	};
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var status  = __webpack_require__( 4 );
-	var actions = __webpack_require__( 3 );
+	var status  = __webpack_require__( 5 );
+	var actions = __webpack_require__( 4 );
 
 	var cssStatus                = {};
 	cssStatus[ status.PENDING ]  = "";
@@ -426,41 +523,6 @@
 	};
 
 /***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var actions = __webpack_require__( 3 );
-
-	module.exports = function ( action, $context ) {
-
-	    switch ( action.type ) {
-
-
-	        case actions.UPDATE_TODO:
-
-	            return {
-	                "type": actions.UPDATE_TODO,
-	                "id"  : action.id,
-	                "text": $context.find( "input" ).val()
-	            };
-
-
-	            break;
-
-
-	        default:
-
-	            return action;
-
-	            break;
-
-	    }
-
-
-	};
-
-/***/ },
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -468,7 +530,7 @@
 	var $         = window.jQuery;
 	var todoStore = __webpack_require__( 1 );
 	var $input    = $( "#todoInput" );
-	var actions = __webpack_require__(3);
+	var actions = __webpack_require__(4);
 
 	$input.on( "keydown", function ( e ) {
 
@@ -500,6 +562,41 @@
 
 	module.exports = $input;
 
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var actions = __webpack_require__( 4 );
+
+	module.exports = function ( action, $context ) {
+
+	    switch ( action.type ) {
+
+
+	        case actions.UPDATE_TODO:
+
+	            return {
+	                "type": actions.UPDATE_TODO,
+	                "id"  : action.id,
+	                "text": $context.find( "input" ).val()
+	            };
+
+
+	            break;
+
+
+	        default:
+
+	            return action;
+
+	            break;
+
+	    }
+
+
+	};
 
 /***/ }
 /******/ ]);

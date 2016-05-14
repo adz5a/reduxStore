@@ -1,7 +1,7 @@
 "use strict";
 
 var test        = require( "tape" ),
-    createStore = require( "./../lib/createStore" );
+    createStore = require( "./../createStore" );
 
 test( "store.subscribe", function ( t ) {
 
